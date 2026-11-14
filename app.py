@@ -1,6 +1,7 @@
 
 import streamlit as st
 import plotly.express as px
+import pandas as pd
 import joblib
 from pathlib import Path
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -100,15 +101,15 @@ st.subheader("Trend Interpretation")
 slope = trend["slope_per_decade"]
 
 if slope > 0:
-    direction = "an increasing"
+    description = "an increasing"
 elif slope < 0:
-    direction = "a decreasing"
+    description = "a decreasing"
 else:
-    direction = "a stable"
+    description = "a stable"
 
 st.info(
     f"Between {start_year} and {end_year}, {variable.lower()} "
-    f"shows {direction} trend of approximately "
+    f"shows {description} trend of approximately "
     f"{abs(slope):.3f} {unit} per decade."
 )
 
@@ -127,7 +128,7 @@ with st.expander("Understanding the Results"):
     st.write("**P-value:** Used to test whether the linear trend differs from zero.")
     st.write("**R²:** Proportion of variation explained by the linear trend.")
     st.caption(
-        "Results are based on ordinary linear regression. Temporal correlation "
+        "Results use ordinary linear regression. Temporal correlation "
         "has not yet been assessed."
     )
 
@@ -139,15 +140,16 @@ st.caption(
 if variable == "Temperature":
     st.divider()
     st.header("Machine Learning — Temperature Prediction")
+
     st.write(
-        "Compare Random Forest predictions with actual NASA temperature "
-        "measurements from 2021 to 2025."
+        "Explore historical one-day-ahead temperature predictions "
+        "from our Random Forest model."
     )
 
     model_path = Path("models/temperature_rf.joblib")
 
     if not model_path.exists():
-        st.error("Trained ML model not found in the models folder.")
+        st.error("Trained machine learning model not found.")
         st.stop()
 
     saved = get_ml_model()
@@ -166,8 +168,7 @@ if variable == "Temperature":
     ml_df = ml_df.dropna(subset=features + ["temperature_c"])
 
     ml_test = ml_df[
-        (ml_df["time"].dt.year >= 2021) &
-        (ml_df["time"].dt.year <= 2025)
+        ml_df["time"].dt.year.between(2021, 2025)
     ].copy()
 
     ml_test["predicted"] = model.predict(ml_test[features])
@@ -205,71 +206,86 @@ if variable == "Temperature":
 
     if improvement > 0:
         st.success(
-            f"Random Forest reduced the average prediction error by "
+            f"Random Forest reduced average prediction error by "
             f"{improvement:.2f}% compared with the persistence baseline."
         )
     else:
         st.warning(
-            "Random Forest did not outperform the persistence baseline "
-            "on average absolute error."
+            "Random Forest did not outperform the persistence baseline."
         )
 
     st.subheader("Actual vs Predicted Temperature")
 
-    available_start = max(start_year, 2021)
-    available_end = min(end_year, 2025)
+    st.write("Select a year and month to examine daily predictions.")
 
-    if available_start > available_end:
-        st.info(
-            "ML evaluation is available only for 2021–2025. "
-            "Adjust the year range to view predictions."
-        )
-    else:
-        display_df = ml_test[
-            ml_test["time"].dt.year.between(
-                available_start,
-                available_end
-            )
-        ].copy()
+    col_year, col_month = st.columns(2)
 
-        
-        display_df = display_df.rename(columns={
-            "temperature_c": "Actual Temperature",
-            "predicted": "Predicted Temperature"
-        })
-
-        fig_ml = px.line(
-            display_df,
-            x="time",
-            y=["Actual Temperature", "Predicted Temperature"],
-            labels={
-                "time": "Date",
-                "value": "Temperature (°C)",
-                "variable": "Series"
-            },
-            title=f"Actual vs Predicted ({available_start}–{available_end})"
+    with col_year:
+        selected_year = st.selectbox(
+            "Select Year",
+            options=list(range(2021, 2026)),
+            index=4
         )
 
-        fig_ml.update_layout(hovermode="x unified")
-        st.plotly_chart(fig_ml, use_container_width=True)
+    with col_month:
+        selected_month = st.selectbox(
+            "Select Month",
+            options=list(range(1, 13)),
+            index=0,
+            format_func=lambda x: pd.Timestamp(2025, x, 1).strftime("%B")
+        )
+
+    display_df = ml_test[
+        (ml_test["time"].dt.year == selected_year) &
+        (ml_test["time"].dt.month == selected_month)
+    ].copy()
+
+    display_df = display_df.rename(columns={
+        "temperature_c": "Actual Temperature",
+        "predicted": "Predicted Temperature"
+    })
+
+    fig_ml = px.line(
+        display_df,
+        x="time",
+        y=["Actual Temperature", "Predicted Temperature"],
+        labels={
+            "time": "Date",
+            "value": "Temperature (°C)",
+            "variable": "Series"
+        },
+        title=f"Actual vs Predicted — {pd.Timestamp(selected_year, selected_month, 1).strftime('%B %Y')}"
+    )
+
+    fig_ml.update_layout(hovermode="x unified")
+    st.plotly_chart(fig_ml, use_container_width=True)
+
+    st.subheader("Selected Month Performance")
+
+    month_mae = mean_absolute_error(
+        display_df["Actual Temperature"],
+        display_df["Predicted Temperature"]
+    )
+
+    st.metric("Monthly MAE", f"{month_mae:.3f} °C")
 
     with st.expander("About the Machine Learning Model"):
         st.write("**Algorithm:** Random Forest Regressor")
         st.write("**Training period:** 2000–2020")
         st.write("**Testing period:** 2021–2025")
-        st.write("**Prediction target:** Daily average temperature")
+        st.write("**Target:** Daily average temperature")
         st.write(
-            "**Input features:** Previous temperatures, seven-day "
-            "average temperature, and month."
+            "**Features:** Previous-day temperatures, seven-day "
+            "rolling average, and month."
         )
         st.write(
-            "**Baseline:** Predicts the current day's temperature "
-            "using the previous day's observed temperature."
+            "**Baseline:** Uses yesterday's temperature "
+            "as today's prediction."
         )
         st.caption(
-            "These results are historical one-day-ahead predictions. "
-            "The model uses actual previous-day observations, not its own "
-            "earlier predictions. It is not a long-term climate forecast."
+            "This is a historical one-day-ahead prediction evaluation. "
+            "Actual previous-day measurements are used as model inputs. "
+            "It is not a long-term temperature forecast."
         )
 
 st.divider()
