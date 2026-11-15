@@ -3,5 +3,7 @@ __pycache__/
 .venv/
 venv/
 .env
-.ipynb_checkpoints/
 .streamlit/secrets.toml
+data/raw/
+models/
+.ipynb_checkpoints/
