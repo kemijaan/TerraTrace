@@ -32,7 +32,7 @@ st.markdown('''
 ''', unsafe_allow_html=True)
 
 @st.cache_data
-def load_processed_data():
+def load_processed_data(file_modified_ns):
     if not SUMMARY.exists():
         return pd.DataFrame()
     df = pd.read_csv(SUMMARY)
@@ -42,6 +42,8 @@ def load_processed_data():
     df['year'] = pd.to_numeric(df['year'], errors='coerce')
     df['annual_value'] = pd.to_numeric(df['annual_value'], errors='coerce')
     df['complete_year'] = df['complete_year'].astype(str).str.strip().str.lower().isin(['true', '1'])
+    df['region_id'] = df['region_id'].astype(str).str.strip().str.lower()
+    df['variable'] = df['variable'].astype(str).str.strip().str.lower()
     df = df[df['complete_year'] & df['region_id'].isin(REGION_NAMES) & df['variable'].isin(VARIABLE_NAMES)]
     df = df.dropna(subset=['year', 'annual_value']).copy()
     df['year'] = df['year'].astype(int)
@@ -94,7 +96,7 @@ st.markdown('<div class="hero-subtitle">Explore NASA temperature and rainfall ob
 st.write('')
 
 try:
-    annual = load_processed_data()
+    annual = load_processed_data(SUMMARY.stat().st_mtime_ns if SUMMARY.exists() else None)
 except Exception as exc:
     st.error(f'Unable to read processed NASA data: {type(exc).__name__}: {exc}')
     annual = pd.DataFrame()
@@ -146,7 +148,13 @@ with explorer_tab:
             country_label = REGION_NAMES[selected_country]
             st.write(f'**Selected country:** {country_label}')
             if annual.empty:
-                st.info('No country-level processed data yet. Download country-shape CSVs and run `python -m pipeline.run`.')
+                st.warning('No matching complete-year country records were loaded.')
+                st.caption(f'Expected processed file: {SUMMARY}')
+                if SUMMARY.exists():
+                    debug_df = pd.read_csv(SUMMARY)
+                    st.caption(f'CSV records: {len(debug_df)} | Regions: {sorted(debug_df["region_id"].astype(str).unique().tolist()) if "region_id" in debug_df else "region_id column missing"}')
+                else:
+                    st.error('The processed CSV does not exist at the path shown above.')
             else:
                 available = annual[annual['region_id'] == selected_country].copy()
                 choices = sorted(available['variable'].unique())

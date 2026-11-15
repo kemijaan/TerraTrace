@@ -1,53 +1,339 @@
 region_id,region_label,variable,year,annual_value,annual_unit,valid_observations,expected_observations,complete_year
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2000,3118.770425110,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2001,3208.373161120,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2002,2615.227461680,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2003,3336.374911740,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2004,3042.548937200,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2005,2858.522520750,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2006,2992.982030240,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2007,3456.713856900,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2008,3719.276369660,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2009,3220.642712560,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2010,3575.472938860,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2011,3308.807314840,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2012,3497.774590740,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2013,3605.319848420,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2014,2876.210792630,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2015,2896.948939670,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2016,3150.061383180,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2017,3629.085806070,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2018,3137.436794650,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2019,2870.527224120,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2020,3562.022580390,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2021,3480.985831460,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2022,3574.636884350,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2023,3358.693893080,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2024,3747.419529310,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,rainfall,2025,3959.683584470,mm/year,12,12,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2000,25.650290724,°C,366,366,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2001,25.783662710,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2002,25.862418682,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2003,25.866975647,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2004,25.794468347,°C,366,366,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2005,25.920013677,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2006,25.880895844,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2007,25.815421910,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2008,25.660964131,°C,366,366,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2009,25.916513033,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2010,26.007970844,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2011,25.750406427,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2012,25.843684790,°C,366,366,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2013,25.924207874,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2014,25.906686005,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2015,26.010255504,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2016,26.286986178,°C,366,366,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2017,26.050576729,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2018,26.009603995,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2019,26.243285784,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2020,26.127090270,°C,366,366,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2021,25.997104597,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2022,26.022479682,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2023,26.461943655,°C,365,365,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2024,26.749701249,°C,366,366,True
-malaysia_sarawak,Sarawak-area bounding box,temperature,2025,26.260725882,°C,365,365,True
+brunei,Brunei,temperature,2000,25.598771287,°C,366,366,True
+brunei,Brunei,temperature,2001,25.704056430,°C,365,365,True
+brunei,Brunei,temperature,2002,25.869741542,°C,365,365,True
+brunei,Brunei,temperature,2003,25.823558808,°C,365,365,True
+brunei,Brunei,temperature,2004,25.730568713,°C,366,366,True
+brunei,Brunei,temperature,2005,25.800505926,°C,365,365,True
+brunei,Brunei,temperature,2006,25.810752995,°C,365,365,True
+brunei,Brunei,temperature,2007,25.754551304,°C,365,365,True
+brunei,Brunei,temperature,2008,25.660471877,°C,366,366,True
+brunei,Brunei,temperature,2009,25.872673866,°C,365,365,True
+brunei,Brunei,temperature,2010,25.965026592,°C,365,365,True
+brunei,Brunei,temperature,2011,25.679205315,°C,365,365,True
+brunei,Brunei,temperature,2012,25.787497421,°C,366,366,True
+brunei,Brunei,temperature,2013,25.798166521,°C,365,365,True
+brunei,Brunei,temperature,2014,25.761749485,°C,365,365,True
+brunei,Brunei,temperature,2015,25.909361282,°C,365,365,True
+brunei,Brunei,temperature,2016,26.203359358,°C,366,366,True
+brunei,Brunei,temperature,2017,25.926935121,°C,365,365,True
+brunei,Brunei,temperature,2018,26.008181962,°C,365,365,True
+brunei,Brunei,temperature,2019,26.131106195,°C,365,365,True
+brunei,Brunei,temperature,2020,26.109449604,°C,366,366,True
+brunei,Brunei,temperature,2021,25.928179162,°C,365,365,True
+brunei,Brunei,temperature,2022,25.901944101,°C,365,365,True
+brunei,Brunei,temperature,2023,26.440270408,°C,365,365,True
+brunei,Brunei,temperature,2024,26.712391038,°C,366,366,True
+brunei,Brunei,temperature,2025,26.188428005,°C,365,365,True
+cambodia,Cambodia,temperature,2000,26.214021339,°C,366,366,True
+cambodia,Cambodia,temperature,2001,26.658944784,°C,365,365,True
+cambodia,Cambodia,temperature,2002,27.349724753,°C,365,365,True
+cambodia,Cambodia,temperature,2003,27.264553296,°C,365,365,True
+cambodia,Cambodia,temperature,2004,27.440110708,°C,366,366,True
+cambodia,Cambodia,temperature,2005,27.517055490,°C,365,365,True
+cambodia,Cambodia,temperature,2006,27.320715255,°C,365,365,True
+cambodia,Cambodia,temperature,2007,27.272648044,°C,365,365,True
+cambodia,Cambodia,temperature,2008,26.961470434,°C,366,366,True
+cambodia,Cambodia,temperature,2009,27.233218268,°C,365,365,True
+cambodia,Cambodia,temperature,2010,27.880552099,°C,365,365,True
+cambodia,Cambodia,temperature,2011,26.757069107,°C,365,365,True
+cambodia,Cambodia,temperature,2012,27.412354658,°C,366,366,True
+cambodia,Cambodia,temperature,2013,27.270115342,°C,365,365,True
+cambodia,Cambodia,temperature,2014,27.495534899,°C,365,365,True
+cambodia,Cambodia,temperature,2015,28.125281416,°C,365,365,True
+cambodia,Cambodia,temperature,2016,28.298079090,°C,366,366,True
+cambodia,Cambodia,temperature,2017,27.150090405,°C,365,365,True
+cambodia,Cambodia,temperature,2018,26.901697773,°C,365,365,True
+cambodia,Cambodia,temperature,2019,27.242404189,°C,365,365,True
+cambodia,Cambodia,temperature,2020,27.101918221,°C,366,366,True
+cambodia,Cambodia,temperature,2021,26.385625397,°C,365,365,True
+cambodia,Cambodia,temperature,2022,26.316711918,°C,365,365,True
+cambodia,Cambodia,temperature,2023,27.378523318,°C,365,365,True
+cambodia,Cambodia,temperature,2024,28.053387549,°C,366,366,True
+cambodia,Cambodia,temperature,2025,27.248765518,°C,365,365,True
+indonesia,Indonesia,temperature,2000,23.986955301,°C,366,366,True
+indonesia,Indonesia,temperature,2001,24.049094408,°C,365,365,True
+indonesia,Indonesia,temperature,2002,24.150032090,°C,365,365,True
+indonesia,Indonesia,temperature,2003,24.147392115,°C,365,365,True
+indonesia,Indonesia,temperature,2004,24.126703117,°C,366,366,True
+indonesia,Indonesia,temperature,2005,24.277696830,°C,365,365,True
+indonesia,Indonesia,temperature,2006,24.115382932,°C,365,365,True
+indonesia,Indonesia,temperature,2007,24.122807504,°C,365,365,True
+indonesia,Indonesia,temperature,2008,23.903402175,°C,366,366,True
+indonesia,Indonesia,temperature,2009,24.082396279,°C,365,365,True
+indonesia,Indonesia,temperature,2010,24.178558690,°C,365,365,True
+indonesia,Indonesia,temperature,2011,23.937384444,°C,365,365,True
+indonesia,Indonesia,temperature,2012,23.964068705,°C,366,366,True
+indonesia,Indonesia,temperature,2013,24.059412030,°C,365,365,True
+indonesia,Indonesia,temperature,2014,24.117091112,°C,365,365,True
+indonesia,Indonesia,temperature,2015,24.212131266,°C,365,365,True
+indonesia,Indonesia,temperature,2016,24.495607383,°C,366,366,True
+indonesia,Indonesia,temperature,2017,24.181451148,°C,365,365,True
+indonesia,Indonesia,temperature,2018,24.155249948,°C,365,365,True
+indonesia,Indonesia,temperature,2019,24.422718466,°C,365,365,True
+indonesia,Indonesia,temperature,2020,24.397892068,°C,366,366,True
+indonesia,Indonesia,temperature,2021,24.185081145,°C,365,365,True
+indonesia,Indonesia,temperature,2022,24.204910953,°C,365,365,True
+indonesia,Indonesia,temperature,2023,24.641061033,°C,365,365,True
+indonesia,Indonesia,temperature,2024,24.956193005,°C,366,366,True
+indonesia,Indonesia,temperature,2025,24.423394027,°C,365,365,True
+laos,Laos,temperature,2000,22.063615232,°C,366,366,True
+laos,Laos,temperature,2001,22.434791718,°C,365,365,True
+laos,Laos,temperature,2002,22.923297378,°C,365,365,True
+laos,Laos,temperature,2003,23.744335008,°C,365,365,True
+laos,Laos,temperature,2004,23.352048437,°C,366,366,True
+laos,Laos,temperature,2005,23.557475953,°C,365,365,True
+laos,Laos,temperature,2006,23.849524847,°C,365,365,True
+laos,Laos,temperature,2007,23.701385660,°C,365,365,True
+laos,Laos,temperature,2008,22.836982770,°C,366,366,True
+laos,Laos,temperature,2009,23.764685636,°C,365,365,True
+laos,Laos,temperature,2010,24.189586545,°C,365,365,True
+laos,Laos,temperature,2011,22.337248063,°C,365,365,True
+laos,Laos,temperature,2012,23.585213470,°C,366,366,True
+laos,Laos,temperature,2013,23.266003247,°C,365,365,True
+laos,Laos,temperature,2014,23.330552953,°C,365,365,True
+laos,Laos,temperature,2015,24.000580584,°C,365,365,True
+laos,Laos,temperature,2016,23.555424087,°C,366,366,True
+laos,Laos,temperature,2017,22.325578578,°C,365,365,True
+laos,Laos,temperature,2018,22.325164619,°C,365,365,True
+laos,Laos,temperature,2019,23.117934562,°C,365,365,True
+laos,Laos,temperature,2020,22.956009751,°C,366,366,True
+laos,Laos,temperature,2021,22.427394422,°C,365,365,True
+laos,Laos,temperature,2022,22.281102696,°C,365,365,True
+laos,Laos,temperature,2023,23.458523288,°C,365,365,True
+laos,Laos,temperature,2024,24.067383541,°C,366,366,True
+laos,Laos,temperature,2025,22.998830301,°C,365,365,True
+malaysia,Malaysia,rainfall,2000,3118.770425110,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2001,3208.373161120,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2002,2615.227461680,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2003,3336.374911740,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2004,3042.548937200,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2005,2858.522520750,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2006,2992.982030240,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2007,3456.713856900,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2008,3719.276369660,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2009,3220.642712560,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2010,3575.472938860,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2011,3308.807314840,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2012,3497.774590740,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2013,3605.319848420,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2014,2876.210792630,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2015,2896.948939670,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2016,3150.061383180,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2017,3629.085806070,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2018,3137.436794650,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2019,2870.527224120,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2020,3562.022580390,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2021,3480.985831460,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2022,3574.636884350,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2023,3358.693893080,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2024,3747.419529310,mm/year,12,12,True
+malaysia,Malaysia,rainfall,2025,3959.683584470,mm/year,12,12,True
+malaysia,Malaysia,temperature,2000,25.650290724,°C,366,366,True
+malaysia,Malaysia,temperature,2001,25.783662710,°C,365,365,True
+malaysia,Malaysia,temperature,2002,25.862418682,°C,365,365,True
+malaysia,Malaysia,temperature,2003,25.866975647,°C,365,365,True
+malaysia,Malaysia,temperature,2004,25.794468347,°C,366,366,True
+malaysia,Malaysia,temperature,2005,25.920013677,°C,365,365,True
+malaysia,Malaysia,temperature,2006,25.880895844,°C,365,365,True
+malaysia,Malaysia,temperature,2007,25.815421910,°C,365,365,True
+malaysia,Malaysia,temperature,2008,25.660964131,°C,366,366,True
+malaysia,Malaysia,temperature,2009,25.916513033,°C,365,365,True
+malaysia,Malaysia,temperature,2010,26.007970844,°C,365,365,True
+malaysia,Malaysia,temperature,2011,25.750406427,°C,365,365,True
+malaysia,Malaysia,temperature,2012,25.843684790,°C,366,366,True
+malaysia,Malaysia,temperature,2013,25.924207874,°C,365,365,True
+malaysia,Malaysia,temperature,2014,25.906686005,°C,365,365,True
+malaysia,Malaysia,temperature,2015,26.010255504,°C,365,365,True
+malaysia,Malaysia,temperature,2016,26.286986178,°C,366,366,True
+malaysia,Malaysia,temperature,2017,26.050576729,°C,365,365,True
+malaysia,Malaysia,temperature,2018,26.009603995,°C,365,365,True
+malaysia,Malaysia,temperature,2019,26.243285784,°C,365,365,True
+malaysia,Malaysia,temperature,2020,26.127090270,°C,366,366,True
+malaysia,Malaysia,temperature,2021,25.997104597,°C,365,365,True
+malaysia,Malaysia,temperature,2022,26.022479682,°C,365,365,True
+malaysia,Malaysia,temperature,2023,26.461943655,°C,365,365,True
+malaysia,Malaysia,temperature,2024,26.749701249,°C,366,366,True
+malaysia,Malaysia,temperature,2025,26.260725882,°C,365,365,True
+myanmar,Myanmar,rainfall,2000,3118.770425110,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2001,3208.373161120,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2002,2615.227461680,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2003,3336.374911740,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2004,3042.548937200,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2005,2858.522520750,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2006,2992.982030240,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2007,3456.713856900,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2008,3719.276369660,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2009,3220.642712560,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2010,3575.472938860,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2011,3308.807314840,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2012,3497.774590740,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2013,3605.319848420,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2014,2876.210792630,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2015,2896.948939670,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2016,3150.061383180,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2017,3629.085806070,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2018,3137.436794650,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2019,2870.527224120,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2020,3562.022580390,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2021,3480.985831460,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2022,3574.636884350,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2023,3358.693893080,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2024,3747.419529310,mm/year,12,12,True
+myanmar,Myanmar,rainfall,2025,3959.683584470,mm/year,12,12,True
+myanmar,Myanmar,temperature,2000,25.650290724,°C,366,366,True
+myanmar,Myanmar,temperature,2001,25.783662710,°C,365,365,True
+myanmar,Myanmar,temperature,2002,25.862418682,°C,365,365,True
+myanmar,Myanmar,temperature,2003,25.866975647,°C,365,365,True
+myanmar,Myanmar,temperature,2004,25.794468347,°C,366,366,True
+myanmar,Myanmar,temperature,2005,25.920013677,°C,365,365,True
+myanmar,Myanmar,temperature,2006,25.880895844,°C,365,365,True
+myanmar,Myanmar,temperature,2007,25.815421910,°C,365,365,True
+myanmar,Myanmar,temperature,2008,25.660964131,°C,366,366,True
+myanmar,Myanmar,temperature,2009,25.916513033,°C,365,365,True
+myanmar,Myanmar,temperature,2010,26.007970844,°C,365,365,True
+myanmar,Myanmar,temperature,2011,25.750406427,°C,365,365,True
+myanmar,Myanmar,temperature,2012,25.843684790,°C,366,366,True
+myanmar,Myanmar,temperature,2013,25.924207874,°C,365,365,True
+myanmar,Myanmar,temperature,2014,25.906686005,°C,365,365,True
+myanmar,Myanmar,temperature,2015,26.010255504,°C,365,365,True
+myanmar,Myanmar,temperature,2016,26.286986178,°C,366,366,True
+myanmar,Myanmar,temperature,2017,26.050576729,°C,365,365,True
+myanmar,Myanmar,temperature,2018,26.009603995,°C,365,365,True
+myanmar,Myanmar,temperature,2019,26.243285784,°C,365,365,True
+myanmar,Myanmar,temperature,2020,26.127090270,°C,366,366,True
+myanmar,Myanmar,temperature,2021,25.997104597,°C,365,365,True
+myanmar,Myanmar,temperature,2022,26.022479682,°C,365,365,True
+myanmar,Myanmar,temperature,2023,26.461943655,°C,365,365,True
+myanmar,Myanmar,temperature,2024,26.749701249,°C,366,366,True
+myanmar,Myanmar,temperature,2025,26.260725882,°C,365,365,True
+philippines,Philippines,temperature,2000,26.134876156,°C,366,366,True
+philippines,Philippines,temperature,2001,26.226374548,°C,365,365,True
+philippines,Philippines,temperature,2002,26.302379773,°C,365,365,True
+philippines,Philippines,temperature,2003,26.249138474,°C,365,365,True
+philippines,Philippines,temperature,2004,26.256336645,°C,366,366,True
+philippines,Philippines,temperature,2005,26.363068871,°C,365,365,True
+philippines,Philippines,temperature,2006,26.308641225,°C,365,365,True
+philippines,Philippines,temperature,2007,26.357364584,°C,365,365,True
+philippines,Philippines,temperature,2008,26.050911658,°C,366,366,True
+philippines,Philippines,temperature,2009,26.144495214,°C,365,365,True
+philippines,Philippines,temperature,2010,26.678334553,°C,365,365,True
+philippines,Philippines,temperature,2011,26.032760663,°C,365,365,True
+philippines,Philippines,temperature,2012,26.259002437,°C,366,366,True
+philippines,Philippines,temperature,2013,26.411825167,°C,365,365,True
+philippines,Philippines,temperature,2014,26.318599353,°C,365,365,True
+philippines,Philippines,temperature,2015,26.554555559,°C,365,365,True
+philippines,Philippines,temperature,2016,26.838735896,°C,366,366,True
+philippines,Philippines,temperature,2017,26.505842740,°C,365,365,True
+philippines,Philippines,temperature,2018,26.539247614,°C,365,365,True
+philippines,Philippines,temperature,2019,26.654546181,°C,365,365,True
+philippines,Philippines,temperature,2020,26.804249997,°C,366,366,True
+philippines,Philippines,temperature,2021,26.617160770,°C,365,365,True
+philippines,Philippines,temperature,2022,26.550586164,°C,365,365,True
+philippines,Philippines,temperature,2023,26.828008458,°C,365,365,True
+philippines,Philippines,temperature,2024,27.208449385,°C,366,366,True
+philippines,Philippines,temperature,2025,26.737145447,°C,365,365,True
+singapore,Singapore,temperature,2000,26.899030470,°C,366,366,True
+singapore,Singapore,temperature,2001,27.027916890,°C,365,365,True
+singapore,Singapore,temperature,2002,27.158685049,°C,365,365,True
+singapore,Singapore,temperature,2003,27.113126175,°C,365,365,True
+singapore,Singapore,temperature,2004,27.032379112,°C,366,366,True
+singapore,Singapore,temperature,2005,27.212578762,°C,365,365,True
+singapore,Singapore,temperature,2006,27.110711592,°C,365,365,True
+singapore,Singapore,temperature,2007,26.982499285,°C,365,365,True
+singapore,Singapore,temperature,2008,26.981281546,°C,366,366,True
+singapore,Singapore,temperature,2009,27.262384063,°C,365,365,True
+singapore,Singapore,temperature,2010,27.572903263,°C,365,365,True
+singapore,Singapore,temperature,2011,27.026301066,°C,365,365,True
+singapore,Singapore,temperature,2012,27.396593590,°C,366,366,True
+singapore,Singapore,temperature,2013,27.462464803,°C,365,365,True
+singapore,Singapore,temperature,2014,27.597875310,°C,365,365,True
+singapore,Singapore,temperature,2015,27.498463321,°C,365,365,True
+singapore,Singapore,temperature,2016,27.847227060,°C,366,366,True
+singapore,Singapore,temperature,2017,27.494956153,°C,365,365,True
+singapore,Singapore,temperature,2018,27.440184112,°C,365,365,True
+singapore,Singapore,temperature,2019,27.917162151,°C,365,365,True
+singapore,Singapore,temperature,2020,27.576408262,°C,366,366,True
+singapore,Singapore,temperature,2021,27.325539088,°C,365,365,True
+singapore,Singapore,temperature,2022,27.435460436,°C,365,365,True
+singapore,Singapore,temperature,2023,27.802870726,°C,365,365,True
+singapore,Singapore,temperature,2024,28.149421896,°C,366,366,True
+singapore,Singapore,temperature,2025,27.693696047,°C,365,365,True
+thailand,Thailand,temperature,2000,25.122238478,°C,366,366,True
+thailand,Thailand,temperature,2001,25.532266595,°C,365,365,True
+thailand,Thailand,temperature,2002,25.698527329,°C,365,365,True
+thailand,Thailand,temperature,2003,25.764387496,°C,365,365,True
+thailand,Thailand,temperature,2004,25.786294262,°C,366,366,True
+thailand,Thailand,temperature,2005,25.991688663,°C,365,365,True
+thailand,Thailand,temperature,2006,25.692082156,°C,365,365,True
+thailand,Thailand,temperature,2007,25.618861096,°C,365,365,True
+thailand,Thailand,temperature,2008,25.203736249,°C,366,366,True
+thailand,Thailand,temperature,2009,25.671106301,°C,365,365,True
+thailand,Thailand,temperature,2010,26.317217101,°C,365,365,True
+thailand,Thailand,temperature,2011,24.838621521,°C,365,365,True
+thailand,Thailand,temperature,2012,25.914222161,°C,366,366,True
+thailand,Thailand,temperature,2013,25.794413518,°C,365,365,True
+thailand,Thailand,temperature,2014,25.895016521,°C,365,365,True
+thailand,Thailand,temperature,2015,26.436386570,°C,365,365,True
+thailand,Thailand,temperature,2016,26.294571295,°C,366,366,True
+thailand,Thailand,temperature,2017,25.456622586,°C,365,365,True
+thailand,Thailand,temperature,2018,25.551792452,°C,365,365,True
+thailand,Thailand,temperature,2019,26.484196633,°C,365,365,True
+thailand,Thailand,temperature,2020,26.184933995,°C,366,366,True
+thailand,Thailand,temperature,2021,25.400823066,°C,365,365,True
+thailand,Thailand,temperature,2022,25.231636118,°C,365,365,True
+thailand,Thailand,temperature,2023,26.198363710,°C,365,365,True
+thailand,Thailand,temperature,2024,26.830625992,°C,366,366,True
+thailand,Thailand,temperature,2025,25.703810849,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2000,25.694854639,°C,366,366,True
+timor_leste,Timor-Leste,temperature,2001,26.037093570,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2002,26.128961348,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2003,26.189809058,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2004,25.953124828,°C,366,366,True
+timor_leste,Timor-Leste,temperature,2005,26.342249356,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2006,25.510816422,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2007,25.996497479,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2008,26.076171101,°C,366,366,True
+timor_leste,Timor-Leste,temperature,2009,26.345161375,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2010,26.862922156,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2011,25.705121858,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2012,25.789392383,°C,366,366,True
+timor_leste,Timor-Leste,temperature,2013,26.094370641,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2014,26.020460570,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2015,25.989242104,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2016,27.043990795,°C,366,366,True
+timor_leste,Timor-Leste,temperature,2017,26.165349570,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2018,26.298905038,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2019,25.980307058,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2020,26.549772913,°C,366,366,True
+timor_leste,Timor-Leste,temperature,2021,26.334130688,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2022,26.410770107,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2023,26.157127227,°C,365,365,True
+timor_leste,Timor-Leste,temperature,2024,26.629922148,°C,366,366,True
+timor_leste,Timor-Leste,temperature,2025,26.261974507,°C,365,365,True
+vietnam,Vietnam,temperature,2000,23.287639989,°C,366,366,True
+vietnam,Vietnam,temperature,2001,23.605532638,°C,365,365,True
+vietnam,Vietnam,temperature,2002,23.946944989,°C,365,365,True
+vietnam,Vietnam,temperature,2003,24.122147890,°C,365,365,True
+vietnam,Vietnam,temperature,2004,23.844364350,°C,366,366,True
+vietnam,Vietnam,temperature,2005,24.158971167,°C,365,365,True
+vietnam,Vietnam,temperature,2006,24.160711003,°C,365,365,True
+vietnam,Vietnam,temperature,2007,23.978801384,°C,365,365,True
+vietnam,Vietnam,temperature,2008,23.357132273,°C,366,366,True
+vietnam,Vietnam,temperature,2009,23.869058047,°C,365,365,True
+vietnam,Vietnam,temperature,2010,24.411826348,°C,365,365,True
+vietnam,Vietnam,temperature,2011,23.069648663,°C,365,365,True
+vietnam,Vietnam,temperature,2012,24.001051566,°C,366,366,True
+vietnam,Vietnam,temperature,2013,23.864990671,°C,365,365,True
+vietnam,Vietnam,temperature,2014,24.099788233,°C,365,365,True
+vietnam,Vietnam,temperature,2015,24.583038611,°C,365,365,True
+vietnam,Vietnam,temperature,2016,24.245417172,°C,366,366,True
+vietnam,Vietnam,temperature,2017,23.635296660,°C,365,365,True
+vietnam,Vietnam,temperature,2018,23.595446348,°C,365,365,True
+vietnam,Vietnam,temperature,2019,24.143094153,°C,365,365,True
+vietnam,Vietnam,temperature,2020,23.926294746,°C,366,366,True
+vietnam,Vietnam,temperature,2021,23.562727411,°C,365,365,True
+vietnam,Vietnam,temperature,2022,23.417110011,°C,365,365,True
+vietnam,Vietnam,temperature,2023,24.157620455,°C,365,365,True
+vietnam,Vietnam,temperature,2024,24.521847287,°C,366,366,True
+vietnam,Vietnam,temperature,2025,23.625049137,°C,365,365,True

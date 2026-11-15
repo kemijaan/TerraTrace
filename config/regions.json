@@ -1,4 +1,3 @@
-
 {
   "brunei": {
     "label": "Brunei",
@@ -65,5 +64,5 @@
     "boundary_type": "country_shape",
     "shape_verified": true,
     "description": "Entire country of Vietnam."
-  } 
+  }
 }
