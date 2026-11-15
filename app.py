@@ -1,294 +1,179 @@
-
-import streamlit as st
-import plotly.express as px
-import pandas as pd
-import joblib
 from pathlib import Path
+import joblib
+import pandas as pd
+import plotly.express as px
+import streamlit as st
+from scipy.stats import linregress
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from analysis import load_data, calculate_trend, load_rainfall, calculate_rainfall_trend
 
-st.set_page_config(page_title="TerraTrace", page_icon="🌍", layout="wide")
+ROOT = Path(__file__).resolve().parent
+SUMMARY = ROOT / 'data' / 'processed' / 'annual_summary.csv'
+REGION_NAMES = {
+    'brunei': 'Brunei', 'cambodia': 'Cambodia', 'indonesia': 'Indonesia',
+    'laos': 'Laos', 'malaysia': 'Malaysia', 'myanmar': 'Myanmar',
+    'philippines': 'Philippines', 'singapore': 'Singapore',
+    'thailand': 'Thailand', 'timor_leste': 'Timor-Leste', 'vietnam': 'Vietnam'
+}
+
+st.set_page_config(page_title='TerraTrace', page_icon='🌍', layout='wide')
 
 @st.cache_data
-def get_temperature_data():
-    return load_data("data/temperature.csv")
-
-@st.cache_data
-def get_rainfall_data():
-    return load_rainfall("data/rainfall.csv")
+def load_processed_data():
+    if not SUMMARY.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(SUMMARY)
+    required = {'region_id', 'variable', 'year', 'annual_value', 'complete_year'}
+    if not required.issubset(df.columns):
+        raise ValueError(f'Pipeline output missing columns: {sorted(required - set(df.columns))}')
+    df['year'] = pd.to_numeric(df['year'], errors='coerce')
+    df['annual_value'] = pd.to_numeric(df['annual_value'], errors='coerce')
+    df['complete_year'] = df['complete_year'].astype(str).str.lower().eq('true')
+    return df.dropna(subset=['year', 'annual_value'])
 
 @st.cache_resource
-def get_ml_model():
-    return joblib.load("models/temperature_rf.joblib")
+def load_model(path):
+    return joblib.load(path)
 
-st.title("TerraTrace")
-st.write("Explore environmental changes using NASA Earth observation data.")
 
-st.sidebar.header("Analysis Settings")
-
-variable = st.sidebar.selectbox(
-    "Environmental Variable",
-    ["Temperature", "Rainfall"]
-)
-
-start_year, end_year = st.sidebar.slider(
-    "Select Year Range",
-    min_value=2000,
-    max_value=2025,
-    value=(2000, 2025)
-)
-
-if variable == "Temperature":
-    df = get_temperature_data()
-    value_column = "temperature_c"
-    unit = "°C"
-    source = "NASA MERRA-2"
-else:
-    df = get_rainfall_data()
-    value_column = "rainfall_mm"
-    unit = "mm"
-    source = "NASA GPCP v3.3"
-
-filtered_df = df[df["time"].dt.year.between(start_year, end_year)]
-
-st.subheader(f"{variable} Trends — Sarawak Area")
-
-if end_year - start_year < 4:
-    st.warning("Please select at least 5 years for trend analysis.")
-    st.stop()
-
-if variable == "Temperature":
-    yearly, trend = calculate_trend(filtered_df)
-else:
-    yearly, trend = calculate_rainfall_trend(filtered_df)
-
-fig = px.line(
-    yearly,
-    x="year",
-    y=value_column,
-    markers=True,
-    labels={
-        "year": "Year",
-        value_column: f"{variable} ({unit})"
-    },
-    title=f"Annual {variable} ({start_year}–{end_year})"
-)
-
-fig.update_layout(hovermode="x unified")
-st.plotly_chart(fig, use_container_width=True)
-
-st.subheader("Trend Analysis")
-
-col1, col2, col3 = st.columns(3)
-
-col1.metric(
-    "Change per Decade",
-    f"{trend['slope_per_decade']:+.3f} {unit}"
-)
-
-col2.metric(
-    "P-value",
-    f"{trend['p_value']:.6f}"
-)
-
-col3.metric(
-    "R²",
-    f"{trend['r_squared']:.3f}"
-)
-
-st.subheader("Trend Interpretation")
-
-slope = trend["slope_per_decade"]
-
-if slope > 0:
-    description = "an increasing"
-elif slope < 0:
-    description = "a decreasing"
-else:
-    description = "a stable"
-
-st.info(
-    f"Between {start_year} and {end_year}, {variable.lower()} "
-    f"shows {description} trend of approximately "
-    f"{abs(slope):.3f} {unit} per decade."
-)
-
-if trend["p_value"] < 0.05:
-    st.success(
-        "The linear trend is statistically significant at the 5% level "
-        "under the regression model assumptions."
-    )
-else:
-    st.info(
-        "The linear trend is not statistically significant at the 5% level."
-    )
-
-with st.expander("Understanding the Results"):
-    st.write("**Change per Decade:** Estimated change over ten years.")
-    st.write("**P-value:** Used to test whether the linear trend differs from zero.")
-    st.write("**R²:** Proportion of variation explained by the linear trend.")
-    st.caption(
-        "Results use ordinary linear regression. Temporal correlation "
-        "has not yet been assessed."
-    )
-
-st.caption(
-    f"Source: {source} | Study area: Sarawak and surrounding regions "
-    "(rectangular bounding box)"
-)
-
-if variable == "Temperature":
-    st.divider()
-    st.header("Machine Learning — Temperature Prediction")
-
-    st.write(
-        "Explore historical one-day-ahead temperature predictions "
-        "from our Random Forest model."
-    )
-
-    model_path = Path("models/temperature_rf.joblib")
-
-    if not model_path.exists():
-        st.error("Trained machine learning model not found.")
-        st.stop()
-
-    saved = get_ml_model()
-    model = saved["model"]
-    features = saved["features"]
-
-    ml_df = get_temperature_data().copy()
-    ml_df = ml_df.sort_values("time").reset_index(drop=True)
-
-    ml_df["temp_lag1"] = ml_df["temperature_c"].shift(1)
-    ml_df["temp_lag2"] = ml_df["temperature_c"].shift(2)
-    ml_df["temp_lag7"] = ml_df["temperature_c"].shift(7)
-    ml_df["temp_rolling7"] = ml_df["temperature_c"].shift(1).rolling(7).mean()
-    ml_df["month"] = ml_df["time"].dt.month
-
-    ml_df = ml_df.dropna(subset=features + ["temperature_c"])
-
-    ml_test = ml_df[
-        ml_df["time"].dt.year.between(2021, 2025)
-    ].copy()
-
-    ml_test["predicted"] = model.predict(ml_test[features])
-    ml_test["baseline"] = ml_test["temp_lag1"]
-
-    rf_mae = mean_absolute_error(
-        ml_test["temperature_c"],
-        ml_test["predicted"]
-    )
-
-    rf_rmse = mean_squared_error(
-        ml_test["temperature_c"],
-        ml_test["predicted"]
-    ) ** 0.5
-
-    rf_r2 = r2_score(
-        ml_test["temperature_c"],
-        ml_test["predicted"]
-    )
-
-    baseline_mae = mean_absolute_error(
-        ml_test["temperature_c"],
-        ml_test["baseline"]
-    )
-
-    st.subheader("Model Performance")
-
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("Random Forest MAE", f"{rf_mae:.3f} °C")
-    col2.metric("Random Forest RMSE", f"{rf_rmse:.3f} °C")
-    col3.metric("Random Forest R²", f"{rf_r2:.3f}")
-
-    improvement = (baseline_mae - rf_mae) / baseline_mae * 100
-
-    if improvement > 0:
-        st.success(
-            f"Random Forest reduced average prediction error by "
-            f"{improvement:.2f}% compared with the persistence baseline."
-        )
+def evaluate_legacy_model(variable):
+    from analysis import load_data, load_rainfall
+    if variable == 'Temperature':
+        csv_path = ROOT / 'data' / 'temperature.csv'
+        model_path = ROOT / 'models' / 'temperature_rf.joblib'
+        target = 'temperature_c'
+        if not csv_path.exists() or not model_path.exists():
+            st.info('Original Sarawak temperature CSV or trained model is not present.')
+            return
+        df = load_data(csv_path).sort_values('time').copy()
+        df['temp_lag1'] = df['temperature_c'].shift(1)
+        df['temp_lag2'] = df['temperature_c'].shift(2)
+        df['temp_lag7'] = df['temperature_c'].shift(7)
+        df['temp_rolling7'] = df['temperature_c'].shift(1).rolling(7).mean()
+        df['month'] = df['time'].dt.month
+        baselines = {'Previous day': 'temp_lag1'}
+        unit = '°C'
     else:
-        st.warning(
-            "Random Forest did not outperform the persistence baseline."
-        )
+        csv_path = ROOT / 'data' / 'rainfall.csv'
+        model_path = ROOT / 'models' / 'rainfall_rf.joblib'
+        target = 'rainfall_mm'
+        if not csv_path.exists() or not model_path.exists():
+            st.info('Original Sarawak rainfall CSV or trained model is not present.')
+            return
+        df = load_rainfall(csv_path).sort_values('time').copy()
+        df['rain_lag1'] = df['rainfall_mm'].shift(1)
+        df['rain_lag2'] = df['rainfall_mm'].shift(2)
+        df['rain_lag3'] = df['rainfall_mm'].shift(3)
+        df['rain_lag12'] = df['rainfall_mm'].shift(12)
+        df['rain_rolling3'] = df['rainfall_mm'].shift(1).rolling(3).mean()
+        df['month'] = df['time'].dt.month
+        baselines = {'Previous month': 'rain_lag1', 'Same month last year': 'rain_lag12'}
+        unit = 'mm'
 
-    st.subheader("Actual vs Predicted Temperature")
+    saved = load_model(str(model_path))
+    features = saved['features']
+    df = df.dropna(subset=features + [target])
+    df = df[df['time'].dt.year.between(2021, 2025)].copy()
+    if df.empty:
+        st.warning('No 2021–2025 test observations available.')
+        return
+    df['prediction'] = saved['model'].predict(df[features])
+    actual = df[target]
+    rows = [{
+        'Model': 'Random Forest',
+        'MAE': mean_absolute_error(actual, df['prediction']),
+        'RMSE': mean_squared_error(actual, df['prediction']) ** 0.5,
+        'R²': r2_score(actual, df['prediction'])
+    }]
+    for name, col in baselines.items():
+        rows.append({
+            'Model': name,
+            'MAE': mean_absolute_error(actual, df[col]),
+            'RMSE': mean_squared_error(actual, df[col]) ** 0.5,
+            'R²': r2_score(actual, df[col])
+        })
+    st.dataframe(pd.DataFrame(rows), hide_index=True)
+    st.caption(f'Units: {unit}. Results are historical one-step-ahead tests (2021–2025), not future forecasts.')
+    year = st.selectbox('Evaluation year', list(range(2021, 2026)), index=4, key='legacy_year')
+    period = df[df['time'].dt.year == year].copy()
+    if variable == 'Temperature':
+        month = st.selectbox('Evaluation month', list(range(1, 13)),
+                             format_func=lambda m: pd.Timestamp(2025, m, 1).strftime('%B'))
+        period = period[period['time'].dt.month == month]
+    period = period.rename(columns={target: 'Actual', 'prediction': 'Predicted'})
+    fig = px.line(period, x='time', y=['Actual', 'Predicted'],
+                  labels={'time': 'Date', 'value': unit, 'variable': 'Series'})
+    st.plotly_chart(fig, use_container_width=True)
 
-    st.write("Select a year and month to examine daily predictions.")
+st.title('🌍 TerraTrace')
+st.write('Explore environmental trends across Southeast Asia using NASA Earth observation data.')
+explorer_tab, ml_tab = st.tabs(['Southeast Asia Explorer', 'Original ML Model Evaluation'])
 
-    col_year, col_month = st.columns(2)
+with explorer_tab:
+    st.subheader('Choose a country')
+    try:
+        from map_view import render_country_map
+        selected_country = render_country_map()
+    except Exception as exc:
+        st.error(f'Interactive map failed: {type(exc).__name__}: {exc}')
+        st.info('Check that map_view.py and data/geo/countries.geojson are in the project, and that folium and streamlit-folium are installed.')
+        selected_country = st.selectbox('Select a country instead', list(REGION_NAMES), format_func=lambda k: REGION_NAMES[k])
+    country_label = REGION_NAMES.get(selected_country, selected_country.replace('_', ' ').title())
+    st.write(f'**Selected country:** {country_label}')
+    try:
+        annual = load_processed_data()
+    except (ValueError, pd.errors.ParserError) as exc:
+        st.error(f'The processed dataset could not be loaded: {exc}')
+        annual = pd.DataFrame()
+    if annual.empty:
+        st.info('No processed data found. Run `python -m pipeline.run` from the TerraTrace project root.')
+    else:
+        available = annual[
+            (annual['region_id'] == selected_country) & annual['complete_year']
+        ].copy()
+        available_variables = sorted(available['variable'].dropna().unique().tolist())
+        if not available_variables:
+            st.info(f'No verified country-wide NASA datasets are available for {country_label} yet. Download the country-shape CSVs and rerun the pipeline.')
+        else:
+            labels = {'temperature': 'Temperature', 'rainfall': 'Rainfall'}
+            variable = st.selectbox('Environmental variable', available_variables,
+                                    format_func=lambda v: labels.get(v, v.title()))
+            series = available[available['variable'] == variable].sort_values('year')
+            years = series['year'].astype(int).tolist()
+            start_year, end_year = st.slider(
+                'Historical year range', min_value=min(years), max_value=max(years),
+                value=(min(years), max(years))
+            )
+            series = series[series['year'].between(start_year, end_year)].copy()
+            unit = '°C' if variable == 'temperature' else 'mm/year'
+            name = 'Average temperature' if variable == 'temperature' else 'Annual rainfall total'
+            fig = px.line(series, x='year', y='annual_value', markers=True,
+                          title=f'{country_label} — {name} ({start_year}–{end_year})',
+                          labels={'year': 'Year', 'annual_value': f'{name} ({unit})'})
+            st.plotly_chart(fig, use_container_width=True)
+            if len(series) >= 5:
+                fit = linregress(series['year'], series['annual_value'])
+                a, b, c = st.columns(3)
+                a.metric('Trend per decade', f'{fit.slope * 10:+.3f} {unit}')
+                b.metric('Regression p-value', f'{fit.pvalue:.6f}')
+                c.metric('R²', f'{fit.rvalue ** 2:.3f}')
+                st.info('Estimated historical trend is increasing.' if fit.slope > 0 else
+                        'Estimated historical trend is decreasing.' if fit.slope < 0 else
+                        'Estimated historical trend is approximately flat.')
+                st.caption('Ordinary linear regression is a preliminary significance test; time-series correlation has not been accounted for.')
+            else:
+                st.warning('Select at least five complete years for trend analysis.')
+            st.caption(f'Source: NASA Giovanni processed data. Region: {country_label}. Country-shape coverage must be verified for each dataset.')
 
-    with col_year:
-        selected_year = st.selectbox(
-            "Select Year",
-            options=list(range(2021, 2026)),
-            index=4
-        )
-
-    with col_month:
-        selected_month = st.selectbox(
-            "Select Month",
-            options=list(range(1, 13)),
-            index=0,
-            format_func=lambda x: pd.Timestamp(2025, x, 1).strftime("%B")
-        )
-
-    display_df = ml_test[
-        (ml_test["time"].dt.year == selected_year) &
-        (ml_test["time"].dt.month == selected_month)
-    ].copy()
-
-    display_df = display_df.rename(columns={
-        "temperature_c": "Actual Temperature",
-        "predicted": "Predicted Temperature"
-    })
-
-    fig_ml = px.line(
-        display_df,
-        x="time",
-        y=["Actual Temperature", "Predicted Temperature"],
-        labels={
-            "time": "Date",
-            "value": "Temperature (°C)",
-            "variable": "Series"
-        },
-        title=f"Actual vs Predicted — {pd.Timestamp(selected_year, selected_month, 1).strftime('%B %Y')}"
-    )
-
-    fig_ml.update_layout(hovermode="x unified")
-    st.plotly_chart(fig_ml, use_container_width=True)
-
-    st.subheader("Selected Month Performance")
-
-    month_mae = mean_absolute_error(
-        display_df["Actual Temperature"],
-        display_df["Predicted Temperature"]
-    )
-
-    st.metric("Monthly MAE", f"{month_mae:.3f} °C")
-
-    with st.expander("About the Machine Learning Model"):
-        st.write("**Algorithm:** Random Forest Regressor")
-        st.write("**Training period:** 2000–2020")
-        st.write("**Testing period:** 2021–2025")
-        st.write("**Target:** Daily average temperature")
-        st.write(
-            "**Features:** Previous-day temperatures, seven-day "
-            "rolling average, and month."
-        )
-        st.write(
-            "**Baseline:** Uses yesterday's temperature "
-            "as today's prediction."
-        )
-        st.caption(
-            "This is a historical one-day-ahead prediction evaluation. "
-            "Actual previous-day measurements are used as model inputs. "
-            "It is not a long-term temperature forecast."
-        )
+with ml_tab:
+    st.subheader('Historical machine learning evaluations')
+    st.warning('These existing Random Forest models were trained on the original Sarawak-area bounding box. They are NOT country-wide forecasts and must not be applied to selected countries.')
+    legacy_variable = st.selectbox('Original model', ['Temperature', 'Rainfall'])
+    if st.checkbox('Load and evaluate saved model', value=False):
+        try:
+            evaluate_legacy_model(legacy_variable)
+        except Exception as exc:
+            st.error(f'Model evaluation failed: {type(exc).__name__}: {exc}')
+            st.info('Country exploration can still be used independently from the existing ML models.')
 
 st.divider()
-st.caption(
-    "TerraTrace | NASA Space Apps Challenge 2026 | Team Super Larpathon"
-)
+st.caption('TerraTrace · NASA Space Apps Challenge 2026 · Super Larpathon')
