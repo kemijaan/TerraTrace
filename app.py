@@ -17,17 +17,52 @@ VARIABLE_NAMES = {'temperature': 'Temperature', 'rainfall': 'Rainfall'}
 st.set_page_config(page_title='TerraTrace | Earth Trend Detective', page_icon='🌍', layout='wide')
 st.markdown('''
 <style>
-.stApp { background: #07131f; color: #e8f1f7; }
-.block-container { max-width: 1240px; padding-top: 1.7rem; padding-bottom: 2.2rem; }
-[data-testid="stMetric"] { background: #112638; border: 1px solid #254255; border-radius: 12px; padding: 14px 16px; }
-[data-testid="stMetricLabel"] { color: #a8c3d4; }
-[data-testid="stMetricValue"] { color: #f0f8ff; }
-.stTabs [data-baseweb="tab-list"] { gap: 12px; }
-.stTabs [data-baseweb="tab"] { background: #112638; border-radius: 9px; padding: 10px 18px; }
-.stTabs [aria-selected="true"] { background: #175c65; }
-.hero-kicker { color: #5edecb; font-weight: 700; letter-spacing: 2px; font-size: 12px; }
-.hero-title { font-size: clamp(2rem,4vw,3.2rem); font-weight: 800; letter-spacing: -1px; margin: 0.3rem 0; }
-.hero-subtitle { color: #b5cad7; max-width: 760px; line-height: 1.65; }
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root { color-scheme:dark; --base:#0d1219; --surface:#151c26; --surface2:#1b2530; --line:#2c3946; --ink:#edf3f6; --muted:#afbdc9; --accent:#62d5bf; }
+html,body,[class*="css"],[data-testid="stAppViewContainer"] {font-family:'DM Sans',sans-serif;}
+.stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {background:var(--base)!important;color:var(--ink)!important;}
+[data-testid="stHeader"] {background:rgba(13,18,25,.94)!important;}
+.block-container {max-width:1160px;padding-top:2.2rem;padding-bottom:3rem;}
+h1,h2,h3,h4,h5,h6 {font-family:'Manrope',sans-serif!important;color:var(--ink)!important;letter-spacing:-.035em;}
+h3 {font-size:1.18rem!important;margin-top:1.1rem!important;}
+[data-testid="stMarkdownContainer"] p,[data-testid="stMarkdownContainer"] li,[data-testid="stMarkdownContainer"] strong {color:var(--ink);line-height:1.62;}
+[data-testid="stWidgetLabel"] p,[data-testid="stWidgetLabel"] label {color:var(--muted)!important;font-weight:600;}
+.hero-eyebrow {color:var(--accent);font-size:.71rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.95rem;}
+.hero-title {font-family:'Manrope',sans-serif;font-size:clamp(2.5rem,5vw,3.7rem);font-weight:800;letter-spacing:-.07em;line-height:1.1;color:#f5fafb;margin:0 0 .8rem;}
+.hero-title span {color:var(--accent)!important;}
+.hero-subtitle {color:#becbd4;font-size:1.02rem;line-height:1.7;max-width:760px;margin-bottom:1.5rem;}
+.stTabs [data-baseweb="tab-list"] {gap:1.55rem;border-bottom:1px solid var(--line);}
+.stTabs [data-baseweb="tab"] {color:#a4b4c0!important;border-radius:0!important;background:transparent!important;padding:.82rem .14rem!important;font-weight:650;}
+.stTabs [data-baseweb="tab"]:hover {color:#edf3f6!important;}
+.stTabs [data-baseweb="tab"][aria-selected="true"] {color:var(--accent)!important;}
+.stTabs [data-baseweb="tab-highlight"] {background:var(--accent)!important;height:2px;}
+.stTabs [data-baseweb="tab-border"] {background:transparent!important;}
+[data-testid="stMetric"] {background:var(--surface)!important;border:1px solid var(--line);border-radius:11px;padding:1rem 1.15rem;}
+[data-testid="stMetricLabel"] p {color:#a9bdc8!important;font-size:.82rem!important;}
+[data-testid="stMetricValue"] {color:#f6fbfc!important;font-family:'Manrope',sans-serif;font-weight:750;letter-spacing:-.045em;}
+[data-testid="stMetricDelta"] {color:var(--muted);}
+[data-testid="stPlotlyChart"] {background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;}
+[data-testid="stDataFrame"] {border:1px solid var(--line);border-radius:11px;overflow:hidden;}
+[data-testid="stExpander"], [data-testid="stVerticalBlockBorderWrapper"] {background:transparent;border-color:var(--line)!important;}
+[data-testid="stAlert"] {border-radius:10px;}
+[data-testid="stCaptionContainer"] p,.stCaption {color:#a5b6c3!important;line-height:1.55;}
+hr {border-color:var(--line)!important;margin:1.8rem 0!important;}
+[data-baseweb="select"]>div,[data-baseweb="input"]>div {background:var(--surface2)!important;border:1px solid #3c4b59!important;border-radius:9px!important;color:var(--ink)!important;}
+[data-baseweb="select"] *,[data-baseweb="input"] input {color:var(--ink)!important;}
+[data-baseweb="popover"],[data-baseweb="menu"],[role="listbox"] {background:var(--surface2)!important;color:var(--ink)!important;}
+[data-baseweb="option"] {background:var(--surface2)!important;color:var(--ink)!important;}
+[data-baseweb="option"]:hover {background:#2b3a48!important;}
+[data-testid="stRadio"] label,[data-testid="stCheckbox"] label {color:var(--ink)!important;}
+[data-testid="stSlider"] {padding-top:.2rem;}
+[data-testid="stSlider"] [role="slider"] {background:var(--accent)!important;border-color:var(--accent)!important;}
+[data-testid="stSlider"] [data-testid="stTickBarMin"],[data-testid="stSlider"] [data-testid="stTickBarMax"] {color:var(--muted)!important;}
+.stButton>button,[data-testid="stDownloadButton"] button {background:var(--surface2)!important;color:var(--ink)!important;border:1px solid #3b4b58!important;border-radius:9px;}
+.stButton>button:hover,[data-testid="stDownloadButton"] button:hover {border-color:var(--accent)!important;color:var(--accent)!important;}
+[data-testid="stSidebar"] {background:var(--surface)!important;}
+[data-testid="stToolbar"] {visibility:visible;}
+[data-testid="stAppViewBlockContainer"] a {color:#80ddcd!important;}
+[data-testid="stAppViewBlockContainer"] a:hover {color:#b6f4e8!important;}
+@media (max-width:700px) {.block-container {padding-top:1.3rem;padding-left:1rem;padding-right:1rem;} .hero-title {font-size:2.65rem;}}
 </style>
 ''', unsafe_allow_html=True)
 
@@ -82,18 +117,24 @@ def explain_trend(fit, variable, label, years):
 
 def chart_style(fig):
     fig.update_layout(
-        template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#d9eaf2'),
-        hovermode='x unified', margin=dict(l=10, r=10, t=55, b=10),
-        legend_title_text='', xaxis=dict(showgrid=False),
-        yaxis=dict(gridcolor='rgba(180,215,230,0.12)')
+        template='plotly_dark',
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(family='DM Sans, Arial, sans-serif', color='#dbe7ec', size=13),
+        title_font=dict(family='Manrope, Arial, sans-serif', color='#f0f6f8', size=17),
+        hovermode='x unified',
+        margin=dict(l=18, r=20, t=58, b=28),
+        legend_title_text='',
+        legend=dict(orientation='h', y=1.12, x=0, bgcolor='rgba(0,0,0,0)', font=dict(color='#cad8e1')),
+        hoverlabel=dict(bgcolor='#23313e', font=dict(color='#f4f9fa')), 
+        xaxis=dict(showgrid=False, linecolor='#364757', zeroline=False),
+        yaxis=dict(gridcolor='#2b3946', zeroline=False)
     )
     return fig
 
-st.markdown('<div class="hero-kicker">NASA SPACE APPS CHALLENGE · 2026</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero-title">🌍 TerraTrace</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero-subtitle">Explore NASA temperature and rainfall observations across 11 Southeast Asian countries. Discover historical trends, compare countries, and understand how the environment is changing.</div>', unsafe_allow_html=True)
-st.write('')
+st.markdown('<div class="hero-eyebrow">Earth observation / Southeast Asia</div>', unsafe_allow_html=True)
+st.markdown('<div class="hero-title">TerraTrace<span>.</span></div>', unsafe_allow_html=True)
+st.markdown('<div class="hero-subtitle">Explore NASA temperature and rainfall observations across 11 Southeast Asian countries. Investigate historical trends, compare places and periods, and uncover how the environment has changed.</div>', unsafe_allow_html=True)
 
 try:
     annual = load_processed_data(SUMMARY.stat().st_mtime_ns if SUMMARY.exists() else None)
@@ -101,13 +142,13 @@ except Exception as exc:
     st.error(f'Unable to read processed NASA data: {type(exc).__name__}: {exc}')
     annual = pd.DataFrame()
 
-explorer_tab, compare_tab, guide_tab = st.tabs(['🌏 Country Explorer', '📊 Comparison', '📖 Reading the Results'])
+explorer_tab, compare_tab, guide_tab = st.tabs(['Explore', 'Compare', 'Methodology'])
 
 with explorer_tab:
     explorer_mode = st.radio('Map view', ['Explore country', 'Trend heatmap'], horizontal=True, key='explorer_map_mode')
     if explorer_mode == 'Trend heatmap':
         st.subheader('Geographic trend heatmap')
-        st.write('Explore how historical temperature or rainfall trends vary across Southeast Asia. Change the variable and years to update the map.')
+        st.caption('Choose a variable and period to reveal how historical trends differ across countries.')
         heat_variable = st.radio('Environmental variable', ['temperature', 'rainfall'], format_func=lambda v: VARIABLE_NAMES[v], horizontal=True, key='heat_variable')
         if annual.empty:
             heat_years = (2000, 2025)
@@ -170,10 +211,10 @@ with explorer_tab:
                     unit = unit_for(variable)
                     name = 'Annual average temperature' if variable == 'temperature' else 'Annual rainfall total'
                     fig = px.line(series, x='year', y='annual_value', markers=True, title=f'{country_label} — {name}', labels={'year': 'Year', 'annual_value': f'{name} ({unit})'})
-                    fig.update_traces(line=dict(color='#59d4c5', width=3), marker=dict(size=7))
+                    fig.update_traces(line=dict(color=('#ffaf8c' if variable == 'temperature' else '#79c7ff'), width=3), marker=dict(size=7))
                     st.plotly_chart(chart_style(fig), use_container_width=True)
                     y = series['year'].astype(int).tolist()
-                    st.caption(f'Available in this selection: {len(series)} complete-year observations, {min(y)}–{max(y)}.')
+                    st.caption(f'{len(series)} complete annual observations · {min(y)}–{max(y)}')
                     fit = trend_metrics(series)
                     if fit is None:
                         st.warning('At least five complete years are needed for trend analysis.')
@@ -184,12 +225,74 @@ with explorer_tab:
                         c.metric('R²', f'{fit.rvalue ** 2:.3f}')
                         explain_trend(fit, variable, country_label, y)
                     st.caption('Source: NASA Giovanni, as processed by TerraTrace. Country-shape coverage must be verified. Linear regression p-values are preliminary and do not account for time-series autocorrelation.')
+                    st.divider()
+                    st.markdown('### Annual anomalies')
+                    st.caption('Compare annual measurements with a reference-period average.')
+                    full_series = available[available['variable'] == variable].sort_values('year').copy()
+                    available_years = sorted(full_series['year'].astype(int).unique().tolist())
+                    first_available, last_available = available_years[0], available_years[-1]
+                    default_start = first_available
+                    default_end = min(first_available + 10, last_available)
+                    if first_available < last_available:
+                        baseline_start, baseline_end = st.slider(
+                            'Reference period',
+                            min_value=first_available,
+                            max_value=last_available,
+                            value=(default_start, default_end),
+                            key=f'anomaly_reference_{selected_country}_{variable}'
+                        )
+                    else:
+                        baseline_start = baseline_end = first_available
+                        st.caption(f'Only {first_available} is available for the reference period.')
+                    baseline_rows = full_series[full_series['year'].between(baseline_start, baseline_end)]
+                    if len(baseline_rows) < 5:
+                        st.warning('Choose a reference period containing at least five complete years.')
+                    else:
+                        baseline = baseline_rows['annual_value'].mean()
+                        anomaly_data = series[['year', 'annual_value']].copy()
+                        anomaly_data['anomaly'] = anomaly_data['annual_value'] - baseline
+                        anomaly_data['direction'] = anomaly_data['anomaly'].apply(
+                            lambda value: 'Above reference' if value >= 0 else 'Below reference'
+                        )
+                        anomaly_unit = '°C' if variable == 'temperature' else 'mm'
+                        fig_anomaly = px.bar(
+                            anomaly_data, x='year', y='anomaly', color='direction',
+                            color_discrete_map={'Above reference': '#ff9a7a', 'Below reference': '#74c4f4'},
+                            title=f'{country_label} — annual {VARIABLE_NAMES[variable].lower()} anomalies',
+                            labels={'year': 'Year', 'anomaly': f'Anomaly ({anomaly_unit})'},
+                            hover_data={'annual_value': ':.2f', 'anomaly': ':+.2f', 'direction': False}
+                        )
+                        fig_anomaly.add_hline(y=0, line_color='#a5b6c3', line_width=1)
+                        st.plotly_chart(chart_style(fig_anomaly), use_container_width=True)
+                        high = anomaly_data.loc[anomaly_data['anomaly'].idxmax()]
+                        low = anomaly_data.loc[anomaly_data['anomaly'].idxmin()]
+                        high_label = 'Warmest relative year' if variable == 'temperature' else 'Wettest relative year'
+                        low_label = 'Coolest relative year' if variable == 'temperature' else 'Driest relative year'
+                        c1, c2, c3 = st.columns(3)
+                        c1.metric('Reference average', f'{baseline:.2f} {unit}')
+                        c2.metric(high_label, f'{int(high["year"])}', f'{high["anomaly"]:+.2f} {anomaly_unit}')
+                        c3.metric(low_label, f'{int(low["year"])}', f'{low["anomaly"]:+.2f} {anomaly_unit}')
+                        st.markdown('#### Understanding these anomalies')
+                        st.write(
+                            f'The reference average for **{country_label}** in **{baseline_start}–{baseline_end}** '
+                            f'is **{baseline:.2f} {unit}**, calculated from **{len(baseline_rows)} complete years**. '
+                            f'Each bar is the annual measurement minus this reference average. '
+                            f'Positive bars indicate {"warmer" if variable == "temperature" else "wetter"} years; '
+                            f'negative bars indicate {"cooler" if variable == "temperature" else "drier"} years relative to the chosen baseline.'
+                        )
+                        st.caption(
+                            f'The anomaly chart uses the selected historical display years ({int(series["year"].min())}–{int(series["year"].max())}), '
+                            'but the reference average is calculated independently from the full available series. '
+                            'The highlighted years are extremes within the displayed range, not records for all time. '
+                            'An annual anomaly does not by itself establish causation or statistical significance.'
+                        )
+
 
 with compare_tab:
     comparison_mode = st.radio('Comparison type', ['Country vs country', 'Period vs period'], horizontal=True, key='comparison_mode')
     if comparison_mode == 'Country vs country':
         st.subheader('Compare countries')
-        st.write('Select two countries and one variable. TerraTrace compares only years with complete observations for **both** countries.')
+        st.caption('Compare the same variable over matching complete years.')
         col1, col2 = st.columns(2)
         with col1:
             country_a = st.selectbox('Country A', list(REGION_NAMES), index=4, format_func=lambda k: REGION_NAMES[k], key='compare_a')
@@ -222,7 +325,7 @@ with compare_tab:
                     units = unit_for(variable)
                     plot_data = merged.melt(id_vars='year', value_vars=['value_a', 'value_b'], var_name='country', value_name='value')
                     plot_data['country'] = plot_data['country'].map({'value_a': label_a, 'value_b': label_b})
-                    fig = px.line(plot_data, x='year', y='value', color='country', markers=True, labels={'year': 'Year', 'value': f'{VARIABLE_NAMES[variable]} ({units})', 'country': 'Country'}, title=f'{label_a} vs {label_b}: {VARIABLE_NAMES[variable]}', color_discrete_sequence=['#59d4c5', '#f6b86a'])
+                    fig = px.line(plot_data, x='year', y='value', color='country', markers=True, labels={'year': 'Year', 'value': f'{VARIABLE_NAMES[variable]} ({units})', 'country': 'Country'}, title=f'{label_a} vs {label_b}: {VARIABLE_NAMES[variable]}', color_discrete_sequence=['#64d7be', '#ffb487'])
                     fig.update_traces(line=dict(width=3), marker=dict(size=6))
                     st.plotly_chart(chart_style(fig), use_container_width=True)
                     st.caption(f'Compared {len(merged)} matching complete years ({int(merged.year.min())}–{int(merged.year.max())}).')
@@ -251,7 +354,7 @@ with compare_tab:
 
     else:
         st.subheader('Compare periods within a country')
-        st.write('Compare two different time periods for the same country using annual NASA measurements.')
+        st.caption('Compare historical averages across two non-overlapping periods.')
         period_country = st.selectbox('Country', list(REGION_NAMES), index=4, format_func=lambda k: REGION_NAMES[k], key='period_country')
         period_variable = st.radio('Environmental variable', ['temperature', 'rainfall'], format_func=lambda v: VARIABLE_NAMES[v], horizontal=True, key='period_variable')
         selected = annual[(annual['region_id'] == period_country) & (annual['variable'] == period_variable)].sort_values('year') if not annual.empty else pd.DataFrame()
@@ -289,7 +392,7 @@ with compare_tab:
                         z.metric('B minus A', f'{delta:+.2f} {unit}')
                         plot_data = pd.concat([a.assign(period='Period A'), b.assign(period='Period B')])
                         fig = px.line(plot_data, x='year', y='annual_value', color='period', markers=True,
-                                      color_discrete_map={'Period A': '#59d4c5', 'Period B': '#f6b86a'},
+                                      color_discrete_map={'Period A': '#64d7be', 'Period B': '#ffb487'},
                                       title=f'{REGION_NAMES[period_country]} — {VARIABLE_NAMES[period_variable]}: period comparison',
                                       labels={'year': 'Year', 'annual_value': f'Annual value ({unit})', 'period': 'Period'})
                         fig.update_traces(line=dict(width=3), marker=dict(size=6))
