@@ -3,67 +3,67 @@
   "brunei": {
     "label": "Brunei",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Brunei."
   },
   "cambodia": {
     "label": "Cambodia",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Cambodia."
   },
   "indonesia": {
     "label": "Indonesia",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "All Indonesian islands within the country's geographical boundary."
   },
   "laos": {
     "label": "Laos",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Laos."
   },
   "malaysia": {
     "label": "Malaysia",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Peninsular Malaysia, Sabah and Sarawak combined."
   },
   "myanmar": {
     "label": "Myanmar",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Myanmar."
   },
   "philippines": {
     "label": "Philippines",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "All Philippine islands within the country's geographical boundary."
   },
   "singapore": {
     "label": "Singapore",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Singapore."
   },
   "thailand": {
     "label": "Thailand",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Thailand."
   },
   "timor_leste": {
     "label": "Timor-Leste",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Timor-Leste."
   },
   "vietnam": {
     "label": "Vietnam",
     "boundary_type": "country_shape",
-    "shape_verified": false,
+    "shape_verified": true,
     "description": "Entire country of Vietnam."
   } 
 }
